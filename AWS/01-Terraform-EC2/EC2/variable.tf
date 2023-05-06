@@ -22,11 +22,6 @@ variable "vpc_id" {
     type = string
 }
 
-# Set your existing subnet Id to get ip on ec2
-variable "subnet_id" {
-    type = string
-}
-
 #Set availability zone for where your instance deploy 
 variable "az" {
    type = string
@@ -35,9 +30,8 @@ variable "az" {
 variable "netnum" {
   type = map
   default = {
-    ap-south-1a = 1
-    ap-south-1b = 0
-    ap-south-1c = 2
+    us-west-1a = 7
+    us-west-1c = 4
   }
 }
 
@@ -51,6 +45,15 @@ variable "storage" {
   type = number
 }
 
+variable "username" {
+  type = map(string)
+  default = {
+    "amazon" = "ec2-user"
+    "099720109477" = "ubuntu"
+    "679593333241" = "centos"
+  }
+  
+}
 variable "extra_tags" {
   type    = map(string)
   default = {}
