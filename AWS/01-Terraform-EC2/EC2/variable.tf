@@ -8,6 +8,7 @@ variable "instance_name" {
     type = string
 }
 
+# Enter Image Owner name either id
 variable "owner" {
     type = string
 }

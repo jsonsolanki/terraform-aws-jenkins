@@ -5,4 +5,4 @@ instance_type = "t2.micro"
 vpc_id = ""
 az = "us-west-1a"
 key_id = ""
-storage = 15
+storage = 20

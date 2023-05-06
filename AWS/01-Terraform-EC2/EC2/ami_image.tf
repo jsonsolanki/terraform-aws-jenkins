@@ -24,4 +24,5 @@ data "aws_ami" "ami_image" {
     name   = "virtualization-type"
     values = ["hvm"]
   }
+
 }
