@@ -8,7 +8,7 @@ output "AMI_ID" {
 
 output "KEY_NAME" {
   value = aws_instance.terra-test.key_name
-
+}
 output "Username" {
   value = "${lookup(var.username, "${var.owner}")}"
   
