@@ -1,4 +1,4 @@
-# AWS Services Deployed using Jenkins & Terraform
+# AWS Services Deploy using Jenkins & Terraform
 
 Deploying AWS Resources Using Terraform and Jenkins Pipeline with Existing Infrastructure on AWS
 
