@@ -1,0 +1,62 @@
+pipeline {
+    
+    agent any
+
+    parameters {
+    //    string(name: 'INSTANCE_NAME', defaultValue: 'bits-prome-oracle', description: 'Write Instance Name for your deployment...!')
+    //    string(name: 'INSTANCE_TYPE', defaultValue: 't2', description: 'Write Instance type for your Virtual Machine...!')
+    //    string(name: 'REGION', defaultValue: 'us-west-1', description: 'Write region for deploy EC2...!')
+    //    string(name: 'AZ', defaultValue: '', description: 'Enter availability zone name for your instance...!')
+    //    string(name: 'KEY_ID', defaultValue: '', description: 'Enter Key name for your instance...!')
+    //    string(name: 'STORAGE', defaultValue: '15', description: 'Enter storage for your instance...!')
+    //    string(name: 'VPC_ID', defaultValue: 'vpc-28b15d41', description: 'Enter VPC ID for your instance...!')
+    //    choice(name: 'SUB_ID', choices: ['subnet-d730ddbe', 'subnet-07ca087c', 'subnet-e3735da9'], description: 'Choose Subnet ID as per your availability zone')
+        choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Choose terraform action as per your required')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                script{
+                        dir("terraform"){
+                            checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'git@github.com:jsonsolanki/terraform-aws-jenkins']]])                                        
+                    }
+                }
+            }
+        }
+        
+        stage ("terraform init") {
+            steps {
+                
+                sh 'pwd;cd terraform/AWS/01-Terraform-EC2/EC2/ ; terraform init' 
+            }
+        }
+        stage ("terraform plan") {
+            steps {
+                sh '''
+                pwd
+                cd terraform/AWS/01-Terraform-EC2/EC2/
+                terraform plan
+                '''
+                }
+            }
+        stage('Waiting for Approval'){
+            steps {
+                timeout(time: 10, unit: 'MINUTES') {
+                    input (message: "Deploy the infrastructure?")
+                }
+            }
+        
+        }
+        stage ("terraform Action") {
+            steps {
+                echo "Terraform action is --> ${ACTION}"
+                sh '''
+                pwd
+                cd terraform/AWS/01-Terraform-EC2/EC2/
+                terraform ${ACTION} --auto-approve 
+                '''
+                }
+            }
+        }
+    }
