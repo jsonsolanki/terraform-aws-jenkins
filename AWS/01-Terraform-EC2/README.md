@@ -9,7 +9,7 @@
 
 - Clone this repository and go to the following folder `AWS/01-Terraform-EC2/EC2`.
 - If you want to save your `tfstate` file into the s3 then you have to add your bucket name in the [backend.tf](https://github.com/jsonsolanki/terraform-aws-jenkins/blob/main/AWS/01-Terraform-EC2/EC2/backend.tf) file. and If you don't want to save your `tfstate` file into the s3 then you can remove this file either you can comment all lines in this file.
-- open [terraform.tfvars](https://github.com/jsonsolanki/terraform-aws-jenkins/blob/main/AWS/01-Terraform-EC2/EC2/terraform.tfvars) file and add value.
+- open [terraform.tfvars](https://github.com/jsonsolanki/terraform-aws-jenkins/blob/main/AWS/01-Terraform-EC2/EC2/terraform.tfvars) file and add value for repective values.
 - In owner variable, you need to choose any one Image owner ID out of three.
 
 | Owner ID | AMI Name |
